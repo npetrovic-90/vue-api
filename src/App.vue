@@ -1,19 +1,26 @@
 <template>
-  <div id="app" class="container">
-    <h1 class="text-primary mt-3">Music App</h1>
-    <p>
-      <font-awesome-icon icon="trash" />
-      Modern Hard Rock
-    </p>
+  <div id="app">
+    <current-song :song="currentSong"></current-song>
   </div>
 </template>
 
 <script>
-import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
+// import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
+import CurrentSong from "./components/CurrentSong.vue";
 export default {
   name: "App",
+  data() {
+    return {
+      currentSong: {
+        name: "Modern Hard Rock",
+        description:
+          "Powerful rock track with cool guitar riffs, energetic groovy drums, tight bass and guitar solo.Perfect for use in sport (like boxing) videos,advertisements,etc...",
+      },
+    };
+  },
   components: {
-    FontAwesomeIcon,
+    //FontAwesomeIcon,
+    CurrentSong,
   },
 };
 </script>
