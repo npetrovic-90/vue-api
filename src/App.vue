@@ -5,6 +5,7 @@
       :songs="songs"
       :currentSong="currentSong"
       @handlePlay="handlePlay"
+      @handleDelete="handleDelete"
     />
   </div>
 </template>
@@ -13,6 +14,7 @@
 // import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import CurrentSong from "./components/CurrentSong.vue";
 import SongList from "./components/SongList.vue";
+import _ from "lodash";
 export default {
   name: "App",
   data() {
@@ -170,11 +172,36 @@ export default {
           file_name_original: "Business Corporate Backgrounds_LYNDA_41443.wav",
         },
       ],
+      audioElement: null,
     };
   },
   methods: {
     handlePlay: function (value) {
+      if (this.audioElement == null) {
+        this.audioElement = new Audio(value.music_url);
+        this.audioElement.play();
+      } else {
+        if (value == this.currentSong) {
+          if (this.audioElement.paused) {
+            this.audioElement.play();
+          } else {
+            this.audioElement.pause();
+          }
+        } else {
+          this.audioElement.src = value.music_url;
+          this.audioElement.play();
+        }
+      }
+
       this.currentSong = value;
+      this.audioElement.addEventListener("ended", () => {
+        this.currentSong = null;
+        this.audioElement = null;
+      });
+    },
+    handleDelete: function (value) {
+      const updatedSongs = _.without(this.songs, value);
+      this.songs = updatedSongs;
     },
   },
   components: {
