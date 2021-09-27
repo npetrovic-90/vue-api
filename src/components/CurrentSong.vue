@@ -3,7 +3,7 @@
     <div class="currentsong sticky-top">
       <div class="currentsong-background position-relative">
         <div
-          class="currentsong-backgroundimage position-absolute"
+          class="currentsong-backgroundimage"
           :style="{ backgroundImage: 'url(' + song.thumb + ')' }"
         ></div>
         <div
